@@ -23,67 +23,6 @@ class Packet():
 prob_input = [ line.rstrip("\n") for line in open("input.txt")]
 #prob_input = [line.rstrip("\n") for line in open("test-input.txt")]
 
-
-# binary_string = bin(int("D2FE28",16))
-
-
-
-
-# packets = []
-# message_length = 3 # first message is 3
-# cur_binary = ""
-# STATE = pack_version
-
-# for line in prob_input:
-#   packets.append(Packet())
-#   for bit in binary_string[2:]:
-#     cur_binary += str(bit)
-
-#     #keeps track of how long it is
-#     if (STATE != pack_padding): packets[-1].total_length += 1 
-
-#     if(STATE == pack_info and cur_binary[0] == "0"):
-#       STATE = pack_info_last_message
-
-#     if(len(cur_binary) == message_length):
-#       if(STATE == pack_version): 
-#         STATE = pack_ID
-#         packets[-1].version = int(cur_binary,2)
-#       elif(STATE == pack_ID): 
-#         packets[-1].ID = int(cur_binary,2)
-#         if(packets[-1].ID == 4):
-#           STATE = pack_info
-#           message_length = 5
-#         else:
-#           STATE = pack_op
-#            packets[-1].op = True # its an operation
-#           message_length = 1
-#       elif ( STATE == pack_op): # get length for sub-packets
-#           packets[-1].len_id = int(cur_binary,2)
-#           if(packets[-1].len_id == 0):
-#             message_length = 15
-#           else:
-#             message_length = 11
-#           STATE = pack_message_length
-#       elif ( STATE == pack_message_length):
-#           packets[-1].len_val = int(cur_binary,2)
-#       elif (STATE == pack_info_last_message or STATE == pack_info):
-#         packets[-1].data +=cur_binary[1:]
-#         if ( STATE == pack_info_last_message):
-#           STATE == pack_padding
-#           message_length = 8 - packets[-1].total_length % 8
-#           if(message_length == 8): #skip padding
-#             STATE = pack_version
-#           packets[-1].data = int(packets[-1].data,2)
-#           if(not packets[-1].op): 
-#             #figure out padding length
-
-#           else:
-
-#       cur_binary = ""
-
-# print(packets)
-
 version_total = 0
 def parse_packet(packet_str):
   global version_total
@@ -170,7 +109,7 @@ def parse_op_pack(packet, packet_str):
 
   elif( packet.ID == 7 ):
     print("equal")
-    packet.data = 1 if packet.children[0].data == packet.children[1].data else 0
+    packet.data = 1 if packet.children[0].data == packet.children[1].data else 0+
 
 
 binary_string = bin(int(prob_input[0],16))[2:]
