@@ -1,0 +1,54 @@
+#!/bin/python3
+import sys, math
+from threading import Thread, Lock
+
+prob_input = [ line.rstrip("\n") for line in open("input.txt")]
+#prob_input = [line.rstrip("\n") for line in open("test-input.txt")]
+
+start_target_x = 277
+end_target_x = 318
+start_target_y=-98
+end_target_y =-53
+
+# check if point is in target
+def inTarget(x,y):
+  return start_target_x <= x <= end_target_x and start_target_y <= y <= end_target_y
+
+print(inTarget(25,-7))
+
+
+# max_x must be distance in to end_target_x
+
+max_x = end_target_x
+real_max_y = 0
+for x in range(1,max_x,1):
+  # only test for y
+  y = 0
+  overshot = False
+  while (overshot == False):
+    y += 1
+    vel_x = x
+    vel_y = y
+
+    cur_x = 0
+    max_y = 0
+    cur_y = 0
+    while ( cur_x < end_target_x and cur_y > start_target_y):
+      if(vel_x == 0 and not (start_target_y <= cur_y <= end_target_y)): 
+        overshot = True
+        break
+      if(cur_y < start_target_y): overshot = True
+      cur_x += vel_x
+      cur_y += vel_y
+      if(vel_x != 0): vel_x -= 1
+      vel_y -= 1
+
+      if(inTarget(cur_x,cur_y)):
+        print("in target with %d %d" % (cur_x, cur_y))
+        real_max_y = max(real_max_y, max_y)
+        print(real_max_y)
+        break
+      else:
+        max_y = max(max_y, cur_y)
+        #print("%d %d" % (cur_x, cur_y))
+print(real_max_y)
